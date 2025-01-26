@@ -25,16 +25,18 @@ int	add_to_stack(t_list **lst, char *str)
 	int		j;
 	t_list	*new;
 
+	new = NULL;
 	split = ft_split(str, ' ');
 	j = 0;
 	while (split[j])
 	{
 		if (check_dup_and_max_int(*lst, split[j]) == 1)
-			return (ft_free(&split, j), 0);
+			return (ft_lstclear(lst), ft_free(&split, j), 0);
 		new = ft_lstnew(ft_atoi(split[j]));
 		if (new == NULL)
-			return (ft_free(&split, j), 0);
+			return (ft_lstclear(lst), ft_free(&split, j), 0);
 		ft_lstadd_back(lst, new);
+		new = NULL;
 		j++;
 	}
 	return (ft_free(&split, j), 1);
@@ -93,9 +95,9 @@ int	moves(t_list **s1, t_list **s2)
 	while (s)
 	{
 		d = conditions(s1, s2, s);
+		free(s);
 		if (d == 1)
 			return (1);
-		free(s);
 		s = get_next_line(0);
 	}
 	return (0);

@@ -26,13 +26,13 @@ int	main(int ac, char **av)
 	if (!stack1)
 		return (ft_lstclear(&stack1), write(2, "Error\n", 6), 0);
 	if (moves(&stack1, &stack2) == 1)
-		return (ft_lstclear(&stack1), 0);
+		return (ft_lstclear(&stack1), ft_lstclear(&stack2), 0);
 	if (is_sorted(stack1) && stack2 == NULL)
 		write(1, "OK\n", 3);
 	else
 		write(1, "KO\n", 3);
 	ft_lstclear(&stack1);
-	if (stack2 == NULL)
+	if (stack2 != NULL)
 		ft_lstclear(&stack2);
 	return (0);
 }
